@@ -1,0 +1,22 @@
+﻿@page
+@model MyApp.Namespace.LoginModel
+@{
+    using (Html.BeginForm())
+    {
+
+        <div class="form-group">
+            @Html.LabelFor(expression: model => model.Username,
+                           labelText: "UserName", htmlAttributes:  new {})
+            @Html.EditorFor(model => model.Username)
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(expression: model => model.Password,
+                           labelText: "Password", htmlAttributes:  new {})
+            @Html.EditorFor(model => model.Password)
+        </div>
+        <input type="submit" value="Login" />
+
+    }
+}
+
+@Model.U, @Model.P
