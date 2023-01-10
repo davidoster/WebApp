@@ -23,14 +23,15 @@ namespace MyApp.Namespace
             //Password = "password";
         }
 
-        public void OnPost(string Username, string Password) 
+        public IActionResult OnPost(string Username, string Password) 
         {
             U = Username.ToUpper();
             P = Password.ToUpper();
-            //Redirect("/Login");
-            RedirectToPage("Login");
-            //this.Username = "koukou";
-            //this.Password = "koukou";
+            if(Username == "admin" && Password == "admin") 
+            { 
+                return RedirectToPage("Dashboard", new { loggedin = "true", username = Username});
+            }  
+            return Redirect("/Login");
             //Console.WriteLine($"UserName: {Username}, Password: {Password}");
         }
     }

@@ -1,0 +1,14 @@
+﻿@page
+@model WebApp.Pages.DashboardModel
+@{
+    string divClass = "";
+    if(Model.Username == null)
+    {
+        divClass = "text-danger";
+    }
+    else
+    {
+        divClass = "card card-title";
+    }
+    <div class="@divClass">@Model.Message</div>
+}
