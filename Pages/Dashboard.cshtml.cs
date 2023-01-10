@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebApp.Services;
 
 namespace WebApp.Pages
 {
@@ -8,12 +9,19 @@ namespace WebApp.Pages
         private bool _loggedin;
         public string Username { get; set; }
         public string Message { get; set; }
-        public void OnGet(bool? loggedin, string username)
+
+        private ILoginService _loginService { get; set; }
+        public DashboardModel(ILoginService loginService)
         {
-            if (loggedin == true) 
+            _loginService = loginService;
+        }
+
+        public void OnGet()
+        {
+            if (_loginService.LoggedIn) 
             {
                 _loggedin = true;
-                Username = username;
+                Username = _loginService.UserName;
                 Message = $"Welcome {Username}";
             }
             else
