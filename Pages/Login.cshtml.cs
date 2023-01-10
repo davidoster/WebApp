@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using WebApp.Services;
 
 namespace MyApp.Namespace
 {
@@ -17,6 +18,13 @@ namespace MyApp.Namespace
         public string U { get; set; }
         public string P { get; set; }
 
+        private ILoginService _loginService { get; set; }
+
+        public LoginModel(ILoginService loginService)
+        {
+            _loginService = loginService;
+        }
+
         public void OnGet()
         {
             //Username = "admin";
@@ -27,11 +35,13 @@ namespace MyApp.Namespace
         {
             U = Username.ToUpper();
             P = Password.ToUpper();
-            if(Username == "admin" && Password == "admin") 
-            { 
-                return RedirectToPage("Dashboard", new { loggedin = "true", username = Username});
+            var isLoggedIn = _loginService.Login(Username, Password);
+            if(isLoggedIn) 
+            {
+                // RazorPage Dashboard
+                return RedirectToPage("Dashboard");//, new { loggedin = "true", username = Username});
             }  
-            return Redirect("/Login");
+            return Redirect("/Login"); // url / Login
             //Console.WriteLine($"UserName: {Username}, Password: {Password}");
         }
     }
