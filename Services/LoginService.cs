@@ -2,6 +2,7 @@
 {
     public class LoginService : ILoginService
     {
+        private string _password { get; set; }
         public bool LoggedIn { get; private set; }
 
         public string UserName { get; private set; }
@@ -16,6 +17,17 @@
             {
                 LoggedIn = true;
                 UserName = username;
+                _password = password;
+                return true;
+            }
+            return false;
+        }
+
+        public bool ChangePassword(string currentPassword, string newPassword, string newPassword1)
+        {
+            if(currentPassword == _password && newPassword == newPassword1)
+            {
+                _password = newPassword; 
                 return true;
             }
             return false;

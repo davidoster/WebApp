@@ -20,7 +20,7 @@ namespace MyApp.Namespace
 
         private ILoginService _loginService { get; set; }
 
-        public LoginModel(ILoginService loginService)
+        public LoginModel(ILoginService loginService) // DI dependency injection
         {
             _loginService = loginService;
         }

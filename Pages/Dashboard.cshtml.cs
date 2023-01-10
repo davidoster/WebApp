@@ -31,5 +31,16 @@ namespace WebApp.Pages
                 Message = $"Not allowed page!";
             }
         }
+
+        public IActionResult OnPost(string old, string password1, string password2)
+        {
+            if(_loginService.ChangePassword(old, password1, password2))
+            {
+                Message = "Successfully changed password!";
+                return RedirectToPage();
+            }
+            Message = "The password wasn't changed! Try again!!!";
+            return RedirectToPage();
+        }
     }
 }
