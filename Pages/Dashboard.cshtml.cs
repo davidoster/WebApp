@@ -6,9 +6,15 @@ namespace WebApp.Pages
 {
     public class DashboardModel : PageModel
     {
-        private bool _loggedin;
         public string Username { get; set; }
         public string Message { get; set; }
+
+        public bool LoggedIn { 
+            get
+            {
+                return _loginService.LoggedIn;
+            } 
+        }
 
         private ILoginService _loginService { get; set; }
         public DashboardModel(ILoginService loginService)
@@ -20,13 +26,11 @@ namespace WebApp.Pages
         {
             if (_loginService.LoggedIn) 
             {
-                _loggedin = true;
                 Username = _loginService.UserName;
                 Message = $"Welcome {Username}";
             }
             else
             {
-                _loggedin = false;
                 Username = null;
                 Message = $"Not allowed page!";
             }
