@@ -24,7 +24,14 @@ namespace WebApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddAuthentication();
+            services.AddRazorPages(options =>
+                {
+                    options.Conventions.AddPageRoute("/Dashboard", "Authorize");
+                    //options.Conventions.AuthorizePage("/Dashboard");
+                    options.Conventions.AllowAnonymousToPage("/Login");
+                }
+                );   
             services.AddSingleton<ILoginService>(new LoginService()); // custom LoginService
         }
 

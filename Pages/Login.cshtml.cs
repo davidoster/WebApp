@@ -2,12 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApp.Services;
 
 namespace MyApp.Namespace
 {
+    
     public class LoginModel : PageModel
     {
         //[BindProperty]
@@ -25,10 +27,16 @@ namespace MyApp.Namespace
             _loginService = loginService;
         }
 
-        public void OnGet()
+        public IActionResult OnGet()
         {
             //Username = "admin";
             //Password = "password";
+            if (_loginService.LoggedIn)
+            {
+                // RazorPage Dashboard
+                return RedirectToPage("Dashboard");//, new { loggedin = "true", username = Username});
+            }
+            return null;
         }
 
         public IActionResult OnPost(string Username, string Password) 

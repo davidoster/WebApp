@@ -1,9 +1,11 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using WebApp.Services;
 
 namespace WebApp.Pages
 {
+    [Authorize]
     public class DashboardModel : PageModel
     {
         public string Username { get; set; }
@@ -35,7 +37,6 @@ namespace WebApp.Pages
                 Message = $"Not allowed page!";
             }
         }
-
         public IActionResult OnPost(string old, string password1, string password2)
         {
             if(_loginService.ChangePassword(old, password1, password2))
